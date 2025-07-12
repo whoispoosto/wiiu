@@ -1,4 +1,4 @@
-name: Make the project
+name: Build the repository
 run-name: ${{ github.actor }} is building their changes
 on: [push]
 jobs:
@@ -13,6 +13,6 @@ jobs:
       - run: echo "Building..."
       - run: |
           sudo apt-get update
-          sudo apt-get install -y gcc-arm-none-eabi arm-none-eabi-binutils-cs
+          sudo apt-get install -y gcc-arm-none-eabi binutils-arm-none-eabi
           make clean && make
       - run: echo "This job's status is ${{ job.status }}."
