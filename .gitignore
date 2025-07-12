@@ -1,7 +1,12 @@
-# Ignore build directory
+# Build directory
 build/
 
-# Ignore Python virtual environment
+# Binaries
+*.elf
+*.bin
+*.fw
+
+# Python virtual environment
 venv/
 
 # Byte-compiled / cache files
@@ -16,6 +21,3 @@ __pycache__/
 .DS_Store
 .vscode/
 .idea/
-
-# Logs
-*.log
