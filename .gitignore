@@ -6,9 +6,6 @@ build/
 *.bin
 *.fw
 
-# Python virtual environment
-venv/
-
 # Byte-compiled / cache files
 __pycache__/
 *.py[cod]
