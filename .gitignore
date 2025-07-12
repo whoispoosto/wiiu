@@ -1,0 +1,21 @@
+# Ignore build directory
+build/
+
+# Ignore Python virtual environment
+venv/
+
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Editor/IDE files
+*.swp
+*.swo
+*.bak
+.DS_Store
+.vscode/
+.idea/
+
+# Logs
+*.log
