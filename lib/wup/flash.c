@@ -1,5 +1,7 @@
 #include <wup/wup.h>
 
+// TODO: re-add mutexes to make thread-safe
+
 static u8 AddrMode;
 
 int Flash_Init()

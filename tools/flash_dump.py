@@ -1,50 +1,75 @@
-import sys, serial
+import sys, serial, time
 
+ARG_PROGRAM_NAME = 0
+ARG_INPUT_BINARY = 1
+ARG_PARTITION_0 = 2
+ARG_PARTITION_1 = 3
+ARG_SERIAL_PORT = 4
+TOTAL_ARG_COUNT = 5
 
-if len(sys.argv) < 4:
-    print("usage: uartload.py <file in> <file out> <serialport>")
+PARTITION_SIZE = 0x400000
+BAUD_RATE = 115200
+
+partitions = []
+
+if len(sys.argv) < TOTAL_ARG_COUNT:
+    print(f"usage: {sys.argv[ARG_PROGRAM_NAME]} image.bin <partition 0 output file> <partition 1 output file> <serial port>")
     sys.exit(-1)
 
-
 try:
-    fin = open(sys.argv[1], 'rb')
+    fin = open(sys.argv[ARG_INPUT_BINARY], 'rb')
 except FileNotFoundError:
-    print("could not open input file")
+    print("Could not open input binary")
     sys.exit(-1)
 
 try:
-    fout = open(sys.argv[2], 'wb')
+    partitions.append(open(sys.argv[ARG_PARTITION_0], 'wb'))
 except FileNotFoundError:
-    print("could not open output file")
+    print("Could not open partition 0 file")
     sys.exit(-1)
 
 try:
-    ser = serial.Serial(sys.argv[3], 115200, timeout=None)
+    partitions.append(open(sys.argv[ARG_PARTITION_1], 'wb'))
+except FileNotFoundError:
+    print("Could not open partition 1 file")
+    sys.exit(-1)
+
+try:
+    ser = serial.Serial(sys.argv[ARG_SERIAL_PORT], BAUD_RATE, timeout=None)
 except serial.serialutil.SerialException:
-    print("could not open serial port")
+    print("Could not open serial port")
+
     fin.close()
+    
+    for p in partitions:
+        p.close()
+
     sys.exit(-1)
 
+# Get input binary length
 fin.seek(0, 2)
 flen = fin.tell()
 fin.seek(0, 0)
 
-print("binary length: {} bytes".format(flen))
+print("Binary length: {} bytes".format(flen))
 
-# send payload length
-print("sending payload length...")
+print("Sending binary length...")
 ser.write(flen.to_bytes(4, byteorder='little'))
 
-# send binary
-print("sending binary...")
+print("Sending binary...")
 ser.write(fin.read(flen))
 fin.close()
 
-print("reading...")
+start_time = time.time()
 
-fout.write(ser.read(0x400000))
+for (i, partition) in enumerate(partitions):
+    print(f"Reading partition {i}...")
+    partition.write(ser.read(PARTITION_SIZE))
+    partition.close()
 
-fout.close()
 ser.close()
 
-print("done!")
+end_time = time.time()
+delta_time = end_time - start_time
+
+print(f"Done in {delta_time} seconds!")
