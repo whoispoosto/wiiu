@@ -13,9 +13,19 @@
 */
 
 int main() {
+    u8 buf[CHUNK_SIZE];
+    u8 flag = 0;
+
+    for (u32 i = 0; i < FIRMWARE_SIZE; i += CHUNK_SIZE) {
+        Flash_Read(FIRMWARE_START + i, buf, CHUNK_SIZE);
+        UART_Send(buf, CHUNK_SIZE);
+
+        flag = 1 - flag;
+        UIC_SetLED(1, flag * 255);
+    }
+
     // Blinky at end
     while (1) {
-        UART_Debug("Hello world!");
         UIC_SetLED(0, 255);
         WUP_DelayMS(500);
         UIC_SetLED(0, 0);
