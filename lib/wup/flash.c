@@ -14,7 +14,7 @@ int Flash_Init()
 void Flash_ReadID(u8* id, int len)
 {
     u8 cmd = 0x9F;
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
     SPI_Write(&cmd, 1);
     SPI_Read(id, len);
     SPI_Finish();
@@ -24,7 +24,7 @@ void Flash_WaitForStatus(u8 mask, u8 val)
 {
     UART_Debug("Starting SPI...");
     // TODO: figure out how to use faster clock
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
 
     UART_Debug("SPI started, sending cmd...");
     u8 cmd = 0x05;
@@ -46,7 +46,7 @@ void Flash_WaitForStatus(u8 mask, u8 val)
 void Flash_WriteEnable()
 {
     u8 cmd = 0x06;
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
     SPI_Write(&cmd, 1);
     SPI_Finish();
 
@@ -56,7 +56,7 @@ void Flash_WriteEnable()
 void Flash_WriteDisable()
 {
     u8 cmd = 0x04;
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
     SPI_Write(&cmd, 1);
     SPI_Finish();
 
@@ -75,7 +75,7 @@ void Flash_Set4ByteAddr(int val)
 
     u8 cmd = val ? 0xB7 : 0xE9;
 
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
     SPI_Write(&cmd, 1);
     SPI_Finish();
 
@@ -88,7 +88,7 @@ void Flash_Set4ByteAddr(int val)
 
 void Flash_Read(u32 addr, void* data, int len)
 {
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
 
     u8 cmd[5];
     cmd[0] = 0x03;
@@ -128,7 +128,7 @@ void Flash_EraseSector(u32 addr)
     Flash_WaitForStatus(0x03, 0x00);
     Flash_WriteEnable();
 
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
 
     u8 cmd[5];
     cmd[0] = 0xD8;
@@ -158,7 +158,7 @@ void Flash_EraseSubsector(u32 addr)
     Flash_WaitForStatus(0x03, 0x00);
     Flash_WriteEnable();
 
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
 
     u8 cmd[5];
     cmd[0] = 0x20;
@@ -188,7 +188,7 @@ void Flash_PageProgram(u32 addr, void* data, int len)
     Flash_WaitForStatus(0x03, 0x00);
     Flash_WriteEnable();
 
-    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_8MHZ);
+    SPI_Start(SPI_DEVICE_FLASH, SPI_CLK_48MHZ);
 
     u8 cmd[5];
     cmd[0] = 0x02;
