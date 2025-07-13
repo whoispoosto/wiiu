@@ -6,9 +6,29 @@
 .arm
 .align 2
 
+.type _init, %function
+
 .global _start
 _start:
-	msr cpsr_c, #0xD0
+ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	ldr pc, [pc, #0x18]
+	.word vec_reset
+	.word halt_loop
+	.word halt_loop
+	.word halt_loop
+	.word halt_loop
+	.word halt_loop
+	.word halt_loop
+	.word halt_loop
+
+vec_reset:
+    msr cpsr_c, #0xD0
 	ldr sp, =__sp_usr
 
 	ldr r0, =__bss_start__
@@ -25,7 +45,6 @@ _start:
 halt_loop:
 	b halt_loop
 
-
 clear_mem:
     add r0, r0, #3
     bic r0, r0, #3
@@ -33,8 +52,15 @@ clear_mem:
     mov r3, #0
     mov r4, #0
     mov r5, #0
+
 _clear_loop:
     stmia r0!, {r2-r5}
     cmp r0, r1
     blt _clear_loop
     bx lr
+
+.section ".init"
+
+.globl _init
+_init:
+	bx lr
