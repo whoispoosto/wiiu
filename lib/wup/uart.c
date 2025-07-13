@@ -5,7 +5,7 @@
 #define SUFFIX "\r\n"
 #define SUFFIX_LEN 2
 
-#define DEBUG
+// #define DEBUG
 
 void UART_Init()
 {
