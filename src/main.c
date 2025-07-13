@@ -15,7 +15,7 @@
 int main() {
     // Blinky at end
     while (1) {
-        UART_SendString("Hello world!");
+        UART_Debug("Hello world!");
         UIC_SetLED(0, 255);
         WUP_DelayMS(500);
         UIC_SetLED(0, 0);
