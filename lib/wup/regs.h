@@ -28,6 +28,9 @@
 #define REG_HARDWARE_RESET      *(vu32*)0xF0000058
 #define REG_UNK64               *(vu32*)0xF0000064
 
+#define REG_UNK814              *(vu32*)0xF0000814
+#define REG_UNK800              *(vu32*)0xF0000800
+
 #define PLL_DIV_2               0x005
 #define PLL_DIV_2_5             0x101
 #define PLL_DIV_N(n)            ((n) & 0x1FE)

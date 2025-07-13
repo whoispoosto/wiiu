@@ -8,6 +8,7 @@
 #include "types.h"
 #include "regs.h"
 
+#include "pll.h"
 #include "dma.h"
 #include "spi.h"
 #include "uic.h"

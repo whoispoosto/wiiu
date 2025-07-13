@@ -6,6 +6,8 @@ void WUP_Init()
     REG_TIMER_TARGET(0) = 0xFFFFFFFF;
     REG_TIMER_CNT(0) = 0;
 
+    PLL_Init();
+
     UART_Init();
 
     DMA_Init();
