@@ -5,6 +5,8 @@
 #define SUFFIX "\r\n"
 #define SUFFIX_LEN 2
 
+#define DEBUG
+
 void UART_Init()
 {
     const int num = 1;
@@ -43,8 +45,9 @@ void UART_Send(u8* buf, int len)
     while (REG_UART_IRQ_STATUS(num) != UART_IRQST_TX_READY);
 }
 
-void UART_SendString(const char* str)
+void UART_Debug(const char* str)
 {
+#ifdef DEBUG
     u32 str_len = strnlen(str, MAX_STR_LEN);
 
     // Create a buffer to store the final message
@@ -56,4 +59,5 @@ void UART_SendString(const char* str)
     memcpy(buf + str_len, SUFFIX, SUFFIX_LEN);
 
     UART_Send((u8*)buf, str_len + SUFFIX_LEN);
+#endif
 }
