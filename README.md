@@ -19,6 +19,5 @@ Thank you to [Arisotura](https://github.com/Arisotura) for all her work in rever
 * Cleaner Python scripting interface -- again, maybe a basic (host) shell
 * ~~Flash dumper~~
 * Flash programmer
-* Flash reverse-engineering
-* WiFI flashing
+* Uploading new firmware over WiFi
 * DOOM
