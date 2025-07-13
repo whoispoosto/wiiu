@@ -6,8 +6,6 @@
 #define CHUNK_SIZE 2048
 
 int main() {
-    WUP_DelayMS(1000);
-
     u8 buf[CHUNK_SIZE];
     u8 flag = 0;
 
@@ -16,7 +14,7 @@ int main() {
         UART_Send(buf, CHUNK_SIZE);
 
         flag = 1 - flag;
-        UIC_SetLED(1, flag * 255);
+        UIC_SetLED(1, (flag << 8) - flag);
     }
 
     // Blinky at end
