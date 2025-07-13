@@ -12,6 +12,7 @@
 #include "spi.h"
 #include "uic.h"
 #include "uart.h"
+#include "flash.h"
 
 void WUP_Init();
 

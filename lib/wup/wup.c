@@ -6,10 +6,15 @@ void WUP_Init()
     REG_TIMER_TARGET(0) = 0xFFFFFFFF;
     REG_TIMER_CNT(0) = 0;
 
+    UART_Init();
+
     DMA_Init();
     SPI_Init();
     UIC_Init();
-    UART_Init();
+
+    UART_Debug("Trying to init flash");
+    
+    Flash_Init();
 }
 
 
