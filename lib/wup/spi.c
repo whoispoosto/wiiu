@@ -1,9 +1,7 @@
 #include <wup/wup.h>
 
-
 void SPI_Init()
 {
-    // ???
     REG_SPI_CNT = 0x307;
     REG_SPI_UNK14 = (REG_SPI_UNK14 & ~0x8013) | 0x8010;
 }
@@ -44,6 +42,7 @@ void SPI_Write(u8* buf, int len)
     SPDMA_Wait(0);
 
     while (!(REG_SPI_IRQ_STATUS & SPI_IRQ_WRITE));
+    
     REG_SPI_IRQ_STATUS = SPI_IRQ_WRITE;
     REG_SPI_IRQ_ENABLE &= ~SPI_IRQ_WRITE;
 }
