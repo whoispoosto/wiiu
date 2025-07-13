@@ -11,6 +11,9 @@ This will take quite a bit of time. Each Home LED toggle (on -> off, off -> on) 
 
 sha256sum: `aaab1f92857640d54350ffcdb67fa2ed4c2e356d2906e966a1385dde74eb2c8e`
 
+# Credits
+Thank you to [Arisotura](https://github.com/Arisotura) for all her work in reverse-engineering the Gamepad. None of this would have been remotely possible without her help. The `lib/wup` library, `melon.ld`, and the `Makefile` are all taken from [here](https://github.com/Arisotura/melonpad), with some modifications.
+
 # TODO
 * Better UART debugging -- maybe a basic on-board shell?
 * Cleaner Python scripting interface -- again, maybe a basic (host) shell
