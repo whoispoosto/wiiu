@@ -4,12 +4,12 @@ WiiU Gamepad fun
 # Flash Dumper
 ```
 make
-python3 tools/flash_dump.py image.bin <output file name> <serial port>
+python3 tools/flash_dump.py image.bin <partition 0 output file> <partition 1 output file> <serial port>
 ```
 
-This will take quite a bit of time. Each Home LED toggle (on -> off, off -> on) represents two writes. With a chunk size of 2048, 2048 reads are required, or 1024 Home LED toggles. However, the script should finish in under 10 minutes.
+This will take quite a bit of time (~13 minutes). Each Battery LED toggle (on -> off, off -> on) represents two reads. With a read/chunk size of 2048, 4096 reads are required, or 2048 Battery LED toggles.
 
-The `sha256sum` of your dump could differ depending on what firmware version(s) your Gamepad has. My partition 0 is `ec8f5da15b7129088f2b45b55b89f3f57c29ade440551801e18941b3f4088828`, and my partition 1 is `c1dcb66b56843e5de75bb2a451641e325dc5e596ba741cc82a5b7b151df1c977`. 
+The `sha256sum` of your dump might differ depending on what firmware version(s) your Gamepad has, I'm not really sure. My partition 0 is `ec8f5da15b7129088f2b45b55b89f3f57c29ade440551801e18941b3f4088828`, and my partition 1 is `c1dcb66b56843e5de75bb2a451641e325dc5e596ba741cc82a5b7b151df1c977`. 
 
 The best way to confirm a proper dump is to look for the [firmware partition table](https://kuribo64.net/wup/doku.php?id=flash_layout&s[]=lvc#firmware_partitions) at the start the file.
 
